@@ -3,8 +3,9 @@
 Author name: Rasmus Bundsgaard Sørensen
 E-mail: rasmus@it-lease.dk
 Github link: https://github.com/rasmus0201/templateparser
+Online link: http://rasmusbundsgaard.dk/templateparser/
 */
-
+t
 define('INCLUDE_PATH', 'classes');
 define('TEMPLATE_PATH', 'templates');
 define('RENDER_PATH', 'rendered');
