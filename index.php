@@ -1,24 +1,29 @@
 <?php
 /*
 Author name: Rasmus Bundsgaard Sørensen
-Github link: https://github.com/rasmus0201
+E-mail: rasmus@it-lease.dk
+Github link: https://github.com/rasmus0201/templateparser
 */
 
+define('INCLUDE_PATH', 'classes');
+define('TEMPLATE_PATH', 'templates');
+define('RENDER_PATH', 'rendered');
+
 //Used for performance tracking
-require 'resources/ExecutionTime.php';
+require INCLUDE_PATH . '/ExecutionTime.php';
 $time_start = microtime(true);
 $executionTime = new ExecutionTime();
 $executionTime->Start();
 
 
 //Require class
-require 'resources/TemplateParser.php';
+require INCLUDE_PATH . '/TemplateParser.php';
 
 //Placeholders as Object
-$placeholders = new stdClass();
-$placeholders->title = 'Site Title';
-$placeholders->heading = 'Frontpage';
-$placeholders->text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, amet.';
+$placeholders               = new stdClass();
+$placeholders->title        = 'Site Title';
+$placeholders->heading      = 'Frontpage';
+$placeholders->text         = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, amet.';
 
 //Placeholders as array
 $placeholders = [
@@ -27,8 +32,11 @@ $placeholders = [
     'text'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, amet.',
 ];
 
+//Template filename
+$filename = 'template_1.php';
+
 //HTML Template Path
-$path = 'templates/template_1.php';
+$path = TEMPLATE_PATH . '/' . $filename;
 
 //Make parser instance here with given template
 $parser = new TemplateParser($path);
@@ -36,12 +44,16 @@ $parser = new TemplateParser($path);
 //Echo the HTML Template with given placeholders
 echo $parser->render($placeholders)->asString();
 
+//You can also echo the Class itself
+echo $parser;
+
 //This saves the parsed HTML template as a file, if needed
-$parser->asFile('rendered/template_1.php');
+$parser->asFile(RENDER_PATH . '/' . $filename);
 
 //End time
 $executionTime->End();
 
 //Find execution time (wall-clock time)
-echo '<br /><br />---<br />Performance:<br />Total execution time: '.round((microtime(true) - $time_start)*1000, 4) .'ms';
+echo '<br /><br />---<br />Performance:<br />';
+echo 'Total execution time: '.round((microtime(true) - $time_start)*1000, 4) .'ms';
 echo '<br>'.$executionTime;

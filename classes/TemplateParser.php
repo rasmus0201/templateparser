@@ -77,6 +77,11 @@ class TemplateParser {
         return $this->htmlParsed;
     }
 
+    //Magic Method: called when echoing the Instance itself 
+    public function __toString(){
+        return $this->asString();
+    }
+
     //Method which stores the parsed html to given location
     public function asFile($location){
 
